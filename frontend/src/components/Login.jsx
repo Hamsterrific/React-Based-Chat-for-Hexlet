@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 import loginImage from '../assets/images/login.jpg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -23,9 +23,9 @@ const Login = () => {
       username: '',
       password: '',
     },
-    validationSchema: Yup.object({
-      username: Yup.string().required('Username is a required field'),
-      password: Yup.string().required('Password is a required field'),
+    validationSchema: yup.object({
+      username: yup.string().required('Username is a required field'),
+      password: yup.string().required('Password is a required field'),
     }),
     onSubmit: async (values) => {
       setAuthFailed(false);
@@ -33,8 +33,6 @@ const Login = () => {
       try {
         const response = await axios.post(routes.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        console.log(response.data);
-        console.log(localStorage)
         auth.logIn(response.data);
         navigate(routes.rootPath());
       } catch (err) {

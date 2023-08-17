@@ -6,8 +6,6 @@ import routes from '../routes.js';
 
 const PrivateRoute = () => {
   const auth = useAuth();
-  console.log('auth');
-  console.log(auth.loggedIn);
 
   return (
     auth.loggedIn ? (<MainPage />) : (
