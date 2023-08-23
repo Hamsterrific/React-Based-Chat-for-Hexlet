@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import AuthContext from './contexts.js';
+import { AuthContext } from './contexts.js';
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const currentUser = JSON.parse(localStorage.getItem('userId'));
-    console.log(currentUser);
     const [loggedIn, setLoggedIn] = useState(Boolean(currentUser));
-    const [user, setUser] = useState(
-      currentUser ? { username: currentUser.username } : null,
+    const [username, setUsername] = useState(
+      currentUser ?  currentUser.username : null,
     );
   
     const logIn = (userData) => {
         setLoggedIn(true);
-        setUser({ username: userData.username });
+        setUsername(userData.username);
       };
 
     const logOut = () => {
       localStorage.removeItem('userId');
-      setUser(null);
+      setUsername(null);
       setLoggedIn(false);
     };
 
@@ -32,7 +31,7 @@ const AuthProvider = ({ children }) => {
       };
   
     return (
-      <AuthContext.Provider value={{ loggedIn, logIn, logOut, getAuthHeader, user }}>
+      <AuthContext.Provider value={{ loggedIn, logIn, logOut, getAuthHeader, username }}>
         {children}
       </AuthContext.Provider>
     );

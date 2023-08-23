@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useAuth from '../hooks/hooks';
+import { useAuth } from '../hooks/hooks';
 import { useDispatch } from 'react-redux';
 import fetchData from '../fetchData.js';
 import ChannelsBox from './ChannelsBox.jsx';

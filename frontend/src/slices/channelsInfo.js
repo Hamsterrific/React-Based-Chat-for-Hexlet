@@ -6,7 +6,7 @@ const defaultChannelId = 1;
 const slice = createSlice({
   name: 'channelsInfo',
   initialState: {
-    loadingStatus: 'idle', 
+    loadingStatus: 'idle',
     channels: [],
     activeChannelId: defaultChannelId,
   },
@@ -31,7 +31,8 @@ const slice = createSlice({
       const channel = state.channels.find(({ id }) => id === channelId);
       channel.name = channelName;
     },
-  },extraReducers: (builder) => {
+  },
+  extraReducers: (builder) => {
     builder
       .addCase(fetchData.pending, (state) => {
         state.loadingStatus = 'loading';

@@ -8,7 +8,7 @@ export const actions = {
     ...messagesInfoActions,
   };
 
-export default combineReducers({
+  export default combineReducers({
   channelsInfo,
   messagesInfo,
 });

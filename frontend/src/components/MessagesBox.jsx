@@ -7,7 +7,6 @@ import NewMessageForm from './NewMessageForm.jsx';
 const MessagesBox = () => {
   const channel = useSelector(getActiveChannel);
   const messages = useSelector(getActiveChannelMessages);
-
   const messagesView = useRef(null);
   useEffect(() => {
     messagesView.current?.lastElementChild?.scrollIntoView({
@@ -28,7 +27,7 @@ const MessagesBox = () => {
         className='chat-messages overflow-auto px-5'
         ref={messagesView}
       >
-        {messages.map(({ id, username, body }) => (
+        {messages.map(({ username, body, id }) => (
           <Message key={id} username={username} body={body} />
         ))}
       </div>

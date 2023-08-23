@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import { Form, Button } from 'react-bootstrap';
-import useAuth from '../hooks/hooks.js'
+import { useAuth } from '../hooks/hooks.js'
 
 const Login = () => {
   const navigate = useNavigate();

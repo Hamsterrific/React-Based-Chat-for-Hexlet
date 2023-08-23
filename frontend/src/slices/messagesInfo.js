@@ -5,19 +5,13 @@ import fetchData from '../fetchData.js';
 const { deleteChannel } = channelsInfoActions;
 
 const slice = createSlice({
-  name: 'channelsInfo',
+  name: 'messagesInfo',
   initialState: {
     messages: [],
   },
   reducers: {
     addMessage(state, { payload }) {
-      const { channel } = payload;
-      state.channels.push(channel);
-    },
-    deleteMessage(state, { payload }) {
-      state.messages = state.messages.filter(
-        (message) => message.id !== payload.id
-      );
+      state.messages.push(payload);
     },
   },
   extraReducers: (builder) => {

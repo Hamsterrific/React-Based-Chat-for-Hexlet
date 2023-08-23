@@ -3,8 +3,12 @@ import { Form, InputGroup, Button } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useAuth, useChatApi } from '../hooks/hooks.js';
 
-const NewMessageForm = () => {
+// eslint-disable-next-line react/prop-types
+const NewMessageForm = ({channel}) => {
+  const { username } = useAuth();
+  const chatApi = useChatApi();
   const inputRef = useRef(null);
   const formik = useFormik({
     initialValues: {
@@ -14,8 +18,16 @@ const NewMessageForm = () => {
       body: yup.string().trim().required('Required'),
     }),
     onSubmit: async (values) => {
-      console.log(values);
-      inputRef.current.focus();
+      const message = {
+        body: values.body,
+        // eslint-disable-next-line react/prop-types
+        channelId: channel.id,
+        username,
+      };
+      console.log('new message: ');
+      console.log(message)
+      await chatApi.addMessage(message);
+      formik.resetForm();
     },
   });
   useEffect(() => {
