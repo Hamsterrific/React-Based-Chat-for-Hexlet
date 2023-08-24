@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import Channel from './Channel.jsx';
-//import { actions } from '../slices/slices.js';
+import { actions } from '../slices/slices.js';
+import Modal from './Modals/Modal.jsx';
 
 const ChannelsBox = () => {
+  const dispatch = useDispatch();
   const channelsInfo = useSelector((state) => state.channelsInfo);
   const { channels } = channelsInfo;
-  //    const dispatch = useDispatch();
   const channelsView = useRef(null);
 
   useEffect(() => {
@@ -17,14 +18,20 @@ const ChannelsBox = () => {
     });
   }, [channelsInfo.channels.length]);
 
+  const handleAddChannel = () => {
+    dispatch(actions.openModal({ type: 'addChannel' }));
+  };
+
   return (
     <>
+      <Modal />
       <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
         <b>Каналы</b>
         <Button
           type='button'
           variant='group-vertical'
           className='p-0 text-primary'
+          onClick={handleAddChannel}
         >
           <PlusSquare size={20} />
           <span className='visually-hidden'>+</span>
@@ -36,7 +43,7 @@ const ChannelsBox = () => {
         ref={channelsView}
       >
         {channels.map((channel) => (
-          <Channel key={channel.id} channel={channel} />
+          <Channel channel={channel} key={channel.id}/>
         ))}
       </ul>
     </>

@@ -15,8 +15,7 @@ const slice = createSlice({
       state.activeChannelId = payload;
     },
     addChannel(state, { payload }) {
-      const { channel } = payload;
-      state.channels.push(channel);
+      state.channels.push(payload);
     },
     deleteChannel(state, { payload }) {
       state.channels = state.channels.filter(
@@ -27,9 +26,9 @@ const slice = createSlice({
       }
     },
     renameChannel(state, { payload }) {
-      const { channelId, channelName } = payload;
-      const channel = state.channels.find(({ id }) => id === channelId);
-      channel.name = channelName;
+      const { name, id } = payload;
+      const channelById = state.channels.find((channel) => id === channel.id);
+      channelById.name = name;
     },
   },
   extraReducers: (builder) => {

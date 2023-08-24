@@ -5,7 +5,6 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAuth, useChatApi } from '../hooks/hooks.js';
 
-// eslint-disable-next-line react/prop-types
 const NewMessageForm = ({channel}) => {
   const { username } = useAuth();
   const chatApi = useChatApi();
@@ -20,19 +19,16 @@ const NewMessageForm = ({channel}) => {
     onSubmit: async (values) => {
       const message = {
         body: values.body,
-        // eslint-disable-next-line react/prop-types
         channelId: channel.id,
         username,
       };
-      console.log('new message: ');
-      console.log(message)
       await chatApi.addMessage(message);
       formik.resetForm();
     },
   });
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  }, [channel, formik.isSubmitting]);
 
   return (
     <Form noValidate onSubmit={formik.handleSubmit} className="py-1 border rounded-2">

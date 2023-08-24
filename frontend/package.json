@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
+    "eslint-config": "^0.3.0",
     "formik": "^2.4.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -43,7 +44,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "eslint": "^8.46.0",
-    "eslint-plugin-react": "^7.33.1"
+    "eslint": "^8.47.0",
+    "eslint-plugin-react": "^7.33.2"
   }
 }

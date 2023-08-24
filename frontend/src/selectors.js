@@ -9,8 +9,18 @@ export const getActiveChannel = (state) => {
 export const getActiveChannelMessages = (state) => {
     const { activeChannelId } = state.channelsInfo;
     const { messages } = state.messagesInfo;
-    console.log('selectors - messages: ');
-    console.log(messages);
     const activeChannelMessages = messages.filter((message) => message.channelId === activeChannelId);
     return activeChannelMessages;
+}
+
+export const getChannelNames = (state) => {
+    const { channels } = state.channelsInfo;
+    const channelNames = channels.map((channel) => channel.name);
+    return channelNames;
+}
+
+export const getChannelById = (channelId) => (state) => {
+    const { channels } = state.channelsInfo;
+    const targetChannel = channels.find((channel) => channelId === channel.id);
+    return targetChannel;
 }

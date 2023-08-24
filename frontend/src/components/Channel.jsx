@@ -5,19 +5,24 @@ import {
   } from 'react-bootstrap';
 import { actions } from '../slices/slices.js';
 
-// eslint-disable-next-line react/prop-types
 const Channel = ({channel}) => {
-    // eslint-disable-next-line react/prop-types
     const { name, id, removable } = channel;
     const { setActiveChannel } = actions;
     const { activeChannelId } = useSelector((state) => state.channelsInfo);
     const dispatch = useDispatch();
     const variant = id === activeChannelId  ? 'secondary' : null;
 
-    const handleSelect = (channelId) => {
+    const handleSelectChannel = (channelId) => {
         dispatch(setActiveChannel(channelId));
     };
 
+    const handleDeleteChannel = (channelId) => {
+      dispatch(actions.openModal({ type: 'deleteChannel', id: channelId }));
+    };
+    const handleRenameChannel = (channelId) => {
+      dispatch(actions.openModal({ type: 'renameChannel', id: channelId }));
+    };
+  
     return (
         <li key={id} className="nav-item w-100">
           {removable
@@ -27,7 +32,7 @@ const Channel = ({channel}) => {
                   type="button"
                   key={id}
                   className="w-100 rounded-0 text-start text-truncate"
-                  onClick={() => handleSelect(id)}
+                  onClick={() => handleSelectChannel(id)}
                   variant={variant}
                 >
                   <span className="me-1">#</span>
@@ -37,8 +42,8 @@ const Channel = ({channel}) => {
                   <span className="visually-hidden">Управление каналом</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item>Удалить</Dropdown.Item>
-                  <Dropdown.Item>Переименовать</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleDeleteChannel(id)}>Удалить</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRenameChannel(id)}>Переименовать</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )
@@ -48,7 +53,7 @@ const Channel = ({channel}) => {
                 variant={variant}
                 key={id}
                 className="w-100 rounded-0 text-start"
-                onClick={() => handleSelect(id)}
+                onClick={() => handleSelectChannel(id)}
               >
                 <span className="me-1">#</span>
                 {name}
