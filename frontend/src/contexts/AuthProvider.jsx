@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AuthContext } from './contexts.js';
 
-// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const currentUser = JSON.parse(localStorage.getItem('userId'));
     const [loggedIn, setLoggedIn] = useState(Boolean(currentUser));

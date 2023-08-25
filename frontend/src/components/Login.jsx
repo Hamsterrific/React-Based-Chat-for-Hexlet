@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import loginImage from '../assets/images/login.jpg';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import routes from '../routes.js';
 import { Form, Button } from 'react-bootstrap';
 import { useAuth } from '../hooks/hooks.js'
@@ -111,8 +111,8 @@ const Login = () => {
             </div>
             <div className='card-footer p-4'>
               <div className='text-center'>
-                <span>Нет аккаунта? </span>
-                Регистрация
+                <span>Нет аккаунта?</span>
+                <Link to={routes.signUpPagePath()}> Регистрация</Link>
               </div>
             </div>
           </div>
