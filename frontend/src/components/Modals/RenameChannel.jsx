@@ -1,16 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import {
-  Modal,
-  FormGroup,
-  FormControl,
-  FormLabel,
-  Button,
-  Form,
-} from 'react-bootstrap';
+import { Modal, FormGroup, FormControl, FormLabel, Button, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
-
+import { useTranslation } from 'react-i18next';
 import { useChatApi } from '../../hooks/hooks.js';
 import { getChannelNames, getChannelById } from '../../selectors.js';
 
@@ -27,6 +20,7 @@ const validationSchema = (channels) =>
 
 const RenameChannel = ({ handleClose }) => {
   const inputRef = useRef(null);
+  const { t } = useTranslation();
   useEffect(() => {
     setTimeout(() => {
       inputRef.current.select();
@@ -60,7 +54,7 @@ const RenameChannel = ({ handleClose }) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Rename Channel</Modal.Title>
+        <Modal.Title>{t('modals.renameChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -77,14 +71,14 @@ const RenameChannel = ({ handleClose }) => {
               isInvalid={!!formik.errors.name}
             />
             <FormLabel htmlFor='name' className='visually-hidden'>
-              Channel name
+            {t('modals.channelName')}
             </FormLabel>
             <FormControl.Feedback type='invalid'>
               {formik.errors.name || formik.status}
             </FormControl.Feedback>
             <Modal.Footer>
               <Button variant='secondary' type='button' onClick={handleClose}>
-                Cancel
+              {t('modals.cancelButton')}
               </Button>
               <Button
                 variant='primary'
@@ -92,7 +86,7 @@ const RenameChannel = ({ handleClose }) => {
                 disabled={formik.isSubmitting}
                 onClick={formik.handleSubmit}
               >
-                Rename
+                {t('modals.renameButton')}
               </Button>
             </Modal.Footer>
           </FormGroup>

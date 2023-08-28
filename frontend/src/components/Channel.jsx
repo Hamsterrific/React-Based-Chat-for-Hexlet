@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    Button, ButtonGroup, Dropdown,
-  } from 'react-bootstrap';
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { actions } from '../slices/slices.js';
 
 const Channel = ({channel}) => {
@@ -10,6 +9,7 @@ const Channel = ({channel}) => {
     const { setActiveChannel } = actions;
     const { activeChannelId } = useSelector((state) => state.channelsInfo);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const variant = id === activeChannelId  ? 'secondary' : null;
 
     const handleSelectChannel = (channelId) => {
@@ -39,11 +39,11 @@ const Channel = ({channel}) => {
                   {name}
                 </Button>
                 <Dropdown.Toggle split className="flex-grow-0" variant={variant}>
-                  <span className="visually-hidden">Управление каналом</span>
+                  <span className="visually-hidden">{t('chat.manageChannel')}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => handleDeleteChannel(id)}>Удалить</Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleRenameChannel(id)}>Переименовать</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleDeleteChannel(id)}>{t('chat.deleteChannel')}</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRenameChannel(id)}>{t('chat.renameChannel')}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { getActiveChannel, getActiveChannelMessages } from '../selectors.js';
 import Message from './Message.jsx';
 import NewMessageForm from './NewMessageForm.jsx';
@@ -8,6 +9,7 @@ const MessagesBox = () => {
   const channel = useSelector(getActiveChannel);
   const messages = useSelector(getActiveChannelMessages);
   const messagesView = useRef(null);
+  const { t } = useTranslation();
   useEffect(() => {
     messagesView.current?.lastElementChild?.scrollIntoView({
       behavior: 'smooth',
@@ -20,7 +22,7 @@ const MessagesBox = () => {
         <p className='m-0'>
           <b>{`# ${channel?.name}`}</b>
         </p>
-        <span className='text-muted'>{`${messages.length} сообщений`}</span>
+        <span className='text-muted'> {`${messages.length} ${t('chat.messageCount', { count: messages.length })}`}</span>
       </div>
       <div
         id='messages-box'

@@ -2,9 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useChatApi } from '../../hooks/hooks.js';
+import { useTranslation } from 'react-i18next';
 
 const DeleteChannel = ({ handleClose }) => {
   const chatApi = useChatApi();
+  const { t } = useTranslation();
   const channelId = useSelector((state) => state.modal.id);
   const handleDelete = async () => {
     await chatApi.deleteChannel({id: channelId})
@@ -18,10 +20,10 @@ const DeleteChannel = ({ handleClose }) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Delete Channel</Modal.Title>
+        <Modal.Title>{t('modals.deleteChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className='lead'>Delete channel?</p>
+        <p className='lead'>{t('modals.confirmation')}</p>
         <Modal.Footer>
           <Button
             variant='secondary'
@@ -29,10 +31,10 @@ const DeleteChannel = ({ handleClose }) => {
             type='button'
             onClick={handleClose}
           >
-            Cancel
+            {t('modals.cancelButton')}
           </Button>
           <Button variant='danger' type='button' onClick={handleDelete}>
-            Delete
+          {t('modals.deleteButton')}
           </Button>
         </Modal.Footer>
       </Modal.Body>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Modal, FormGroup, FormControl, FormLabel, Button, Form,
@@ -25,6 +26,7 @@ const AddChannel = ({ handleClose }) => {
   const chatApi = useChatApi();
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -50,7 +52,7 @@ const AddChannel = ({ handleClose }) => {
   return(
     <>
       <Modal.Header closeButton={handleClose}>
-        <Modal.Title>Add Channel</Modal.Title>
+        <Modal.Title>{t('modals.addChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -66,14 +68,14 @@ const AddChannel = ({ handleClose }) => {
               disabled={formik.isSubmitting}
               isInvalid={!!formik.errors.name}
             />
-            <FormLabel htmlFor="name" className="visually-hidden">Channel name</FormLabel>
+            <FormLabel htmlFor="name" className="visually-hidden">{t('modals.channelName')}</FormLabel>
             <FormControl.Feedback type="invalid">
               {formik.errors.name || formik.status}
             </FormControl.Feedback>
             <Modal.Footer>
-              <Button variant="secondary" type="button" onClick={handleClose}>Cancel</Button>
+              <Button variant="secondary" type="button" onClick={handleClose}>{t('modals.cancelButton')}</Button>
               <Button variant="primary" type="submit" 
-                disabled={formik.isSubmitting} onClick={formik.handleSubmit}>Add</Button>
+                disabled={formik.isSubmitting} onClick={formik.handleSubmit}>{t('modals.addButton')}</Button>
             </Modal.Footer>
           </FormGroup>
         </Form>

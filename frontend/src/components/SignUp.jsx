@@ -4,12 +4,14 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import routes from '../routes.js';
 import { useAuth } from '../hooks/hooks.js';
 import registrationAvatar from '../assets/images/reg_avatar.jpg';
 
 const SignUp = () => {
   const { logIn } = useAuth();
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [registrationFailed, setRegistrationFailed] = useState(false);
@@ -22,20 +24,20 @@ const SignUp = () => {
   const validationSchema = yup.object({
     username: yup
       .string()
-      .min(3, 'Username  must contain at least 3 characters')
-      .max(20, 'Username cannot exceed 15 characters')
+      .min(3, t('signUp.usernameMin'))
+      .max(20, t('signUp.usernameMax'))
       .trim()
-      .required('Username is a required field'),
+      .required(t('signUp.required')),
     password: yup
       .string()
-      .min(6, 'Password  must contain at least 6 characters')
-      .max(20, 'Password cannot exceed 15 characters')
+      .min(6, t('signUp.passwordMin'))
+      .max(20, t('signUp.passwordMax'))
       .trim()
-      .required('Password is a required field'),
+      .required(t('signUp.required')),
     confirmPassword: yup
       .string()
       .trim()
-      .test('confirmPassword', 'must match', (value, context) => value === context.parent.password),
+      .test('confirmPassword', t('signUp.passwordsMustMatch'), (value, context) => value === context.parent.password),
   });
 
   const formik = useFormik({
@@ -81,7 +83,7 @@ const SignUp = () => {
                 />
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">Sign Up</h1>
+                <h1 className="text-center mb-4">{t('signUp.header')}</h1>
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
                     onChange={formik.handleChange}
@@ -99,7 +101,7 @@ const SignUp = () => {
                     required
                     ref={inputRef}
                   />
-                  <Form.Label htmlFor="username">username</Form.Label>
+                  <Form.Label htmlFor="username">{t('signUp.username')}</Form.Label>
                   <Form.Control.Feedback type="invalid" tooltip placement="right">
                     {formik.errors.username}
                   </Form.Control.Feedback>
@@ -125,7 +127,7 @@ const SignUp = () => {
                   <Form.Control.Feedback type="invalid" tooltip>
                     {formik.errors.password}
                   </Form.Control.Feedback>
-                  <Form.Label htmlFor="password">password</Form.Label>
+                  <Form.Label htmlFor="password">{t('signUp.password')}</Form.Label>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
                   <Form.Control
@@ -146,13 +148,13 @@ const SignUp = () => {
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {registrationFailed
-                      ? 'already exists'
-                      : formik.errors.confirmPassword}
+                      ? t('signUp.alreadyExists')
+                      : t(formik.errors.confirmPassword)}
                   </Form.Control.Feedback>
-                  <Form.Label htmlFor="confirmPassword">confirm</Form.Label>
+                  <Form.Label htmlFor="confirmPassword">{t('signUp.confirmPassword')}</Form.Label>
 
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" className="w-100">Submit</Button>
+                <Button type="submit" variant="outline-primary" className="w-100">{t('signUp.submit')}</Button>
               </Form>
             </div>
           </div>

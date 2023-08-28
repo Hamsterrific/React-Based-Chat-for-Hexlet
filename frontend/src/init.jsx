@@ -3,11 +3,14 @@ import App from './components/App.jsx';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { io } from 'socket.io-client';
+import i18next from 'i18next';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import resources from './locales/locales.js';
 import reducer, { actions } from './slices/slices.js';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import ChatApiProvider from './contexts/ChatApiProvider.jsx';
 
-const init = () => {  
+const init = async () => {
   const store = configureStore({
     reducer,
   });
@@ -27,17 +30,24 @@ const init = () => {
     dispatch(renameChannel(payload));
   });
 
-  const vdom = (
-    <Provider store={store}>
-      <AuthProvider>
-        <ChatApiProvider socket={socket}>
-          <App />
-        </ChatApiProvider>
-      </AuthProvider>
-    </Provider>
-  );
+  const i18n = i18next.createInstance();
+  await i18n.use(initReactI18next).init({
+    debug: true,
+    resources,
+    fallbackLng: 'ru',
+  });
 
-  return vdom;
+  return (
+    <I18nextProvider i18n={i18n}>
+      <AuthProvider>
+        <Provider store={store}>
+          <ChatApiProvider socket={socket}>
+            <App />
+          </ChatApiProvider>
+        </Provider>
+      </AuthProvider>
+    </I18nextProvider>
+  );
 };
 
 export default init;
