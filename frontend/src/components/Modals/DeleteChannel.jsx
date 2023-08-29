@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useChatApi } from '../../hooks/hooks.js';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const DeleteChannel = ({ handleClose }) => {
   const chatApi = useChatApi();
@@ -11,10 +12,11 @@ const DeleteChannel = ({ handleClose }) => {
   const handleDelete = async () => {
     await chatApi.deleteChannel({id: channelId})
       .then(() => {
+        toast.success(t('toast.deletedChannel'));
         handleClose();
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        toast.error(t('toast.dataError'));
       });
   };
   return (

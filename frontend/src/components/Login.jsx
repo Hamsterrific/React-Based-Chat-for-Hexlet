@@ -4,10 +4,11 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import loginImage from '../assets/images/login.jpg';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { useNavigate, Link } from 'react-router-dom';
 import routes from '../routes.js';
 import { Form, Button } from 'react-bootstrap';
-import { useAuth } from '../hooks/hooks.js'
+import { useAuth } from '../hooks/hooks.js';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,14 +38,22 @@ const Login = () => {
         localStorage.setItem('userId', JSON.stringify(response.data));
         auth.logIn(response.data);
         navigate(routes.rootPath());
-      } catch (err) {
+      } catch (error) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
+
+        if (!error.isAxiosError) {
+          toast.error(t('toast.unknownError'));
+          return;
+        }
+
+        if (error.response?.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
           return;
+        } else {
+          toast.error(t('toast.connectionError'));
+          return;
         }
-        throw err;
       }
     },
   });
@@ -82,7 +91,9 @@ const Login = () => {
                     ref={inputRef}
                     isInvalid={authFailed}
                   />
-                  <Form.Label htmlFor='username'>{t('login.username')}</Form.Label>
+                  <Form.Label htmlFor='username'>
+                    {t('login.username')}
+                  </Form.Label>
                 </Form.Group>
                 <Form.Group className='form-floating mb-4'>
                   <Form.Control
@@ -98,9 +109,17 @@ const Login = () => {
                     isInvalid={authFailed}
                   />
                   <Form.Label className='form-label' htmlFor='password'>
-                  {t('login.password')}
+                    {t('login.password')}
                   </Form.Label>
-                  {authFailed && <Form.Control.Feedback type="invalid" className="invalid-feedback" tooltip>{t('login.wrongCredentials')}</Form.Control.Feedback>}
+                  {authFailed && (
+                    <Form.Control.Feedback
+                      type='invalid'
+                      className='invalid-feedback'
+                      tooltip
+                    >
+                      {t('login.wrongCredentials')}
+                    </Form.Control.Feedback>
+                  )}
                 </Form.Group>
                 <Button
                   type='submit'

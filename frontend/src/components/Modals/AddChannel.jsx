@@ -3,9 +3,8 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Modal, FormGroup, FormControl, FormLabel, Button, Form,
-} from 'react-bootstrap';
+import { Modal, FormGroup, FormControl, FormLabel, Button, Form, } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useChatApi } from '../../hooks/hooks.js';
 import { actions } from '../../slices/slices.js';
 import { getChannelNames } from '../../selectors.js';
@@ -41,9 +40,15 @@ const AddChannel = ({ handleClose }) => {
       const channel = {
         name: values.name,
       };
-      const data = await chatApi.addChannel(channel);
-      dispatch(actions.setActiveChannel(data.id));
-      handleClose();
+      await chatApi.addChannel(channel)
+        .then((data) => {
+          dispatch(actions.setActiveChannel(data.id));
+          toast.success(t('toast.addedChannel'));
+          handleClose();
+        })
+        .catch(() => {
+          toast.error(t('toast.dataError'));
+        });
     },
     validateOnBlur: false,
     validateOnChange: false,

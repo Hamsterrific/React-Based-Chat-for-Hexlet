@@ -48,8 +48,21 @@ export default {
       newMessage: 'Новое сообщение',
       enterMessage: 'Введите сообщение',
     },
+    toast: {
+      addedChannel: 'Канал создан',
+      deletedChannel: 'Канал удален',
+      renamedChannel: 'Канал переименован',
+      dataError: 'Ошибка загрузки данных',
+      unknownError: 'Неизвестная ошибка',
+      connectionError: 'Ошибка соединения',
+    },
+    notFound: {
+      header: 'Страница не найдена',
+      navigate: 'Но вы можете перейти',
+      toHomePage: 'на главную страницу',
+    },
     chatName: 'Hexlet Chat',
     logOut: 'Выйти',
-    notFound: 'Страница не найдена',
+    loading: 'Загружается...',
   },
 };

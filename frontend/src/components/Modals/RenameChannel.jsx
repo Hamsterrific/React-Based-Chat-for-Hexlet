@@ -4,6 +4,7 @@ import { Modal, FormGroup, FormControl, FormLabel, Button, Form } from 'react-bo
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useChatApi } from '../../hooks/hooks.js';
 import { getChannelNames, getChannelById } from '../../selectors.js';
 
@@ -39,13 +40,13 @@ const RenameChannel = ({ handleClose }) => {
     validationSchema: validationSchema(channelNames),
     onSubmit: async (values) => {
       const { name } = values;
-      await chatApi
-        .renameChannel({ name, id: channelId })
+      await chatApi.renameChannel({ name, id: channelId })
         .then(() => {
+          toast.success(t('toast.renamedChannel'));
           handleClose();
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          toast.error(t('toast.dataError'));
         });
     },
     validateOnBlur: false,
