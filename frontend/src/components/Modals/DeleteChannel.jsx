@@ -26,17 +26,17 @@ const DeleteChannel = ({ handleClose }) => {
         <Modal.Title>{t('modals.deleteChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className='lead'>{t('modals.confirmation')}</p>
+        <p className="lead">{t('modals.confirmation')}</p>
         <Modal.Footer>
           <Button
-            variant='secondary'
-            className='me-2'
-            type='button'
+            variant="secondary"
+            className="me-2"
+            type="button"
             onClick={handleClose}
           >
             {t('modals.cancelButton')}
           </Button>
-          <Button variant='danger' type='button' onClick={handleDelete}>
+          <Button variant="danger" type="button" onClick={handleDelete}>
             {t('modals.deleteButton')}
           </Button>
         </Modal.Footer>

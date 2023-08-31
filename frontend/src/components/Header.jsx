@@ -8,9 +8,9 @@ const Header = () => {
   const { logOut, loggedIn } = useAuth();
   const { t } = useTranslation();
   return (
-    <Navbar bg='white' expand='lg' className='shadow-sm'>
-      <div className='container'>
-        <Navbar.Brand as={Link} to='/'>
+    <Navbar bg="white" expand="lg" className="shadow-sm">
+      <div className="container">
+        <Navbar.Brand as={Link} to="/">
           {t('chatName')}
         </Navbar.Brand>
         {!!loggedIn && <Button onClick={logOut}>{t('logOut')}</Button>}

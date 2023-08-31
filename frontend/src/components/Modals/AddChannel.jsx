@@ -74,29 +74,29 @@ const AddChannel = ({ handleClose }) => {
         <Form onSubmit={formik.handleSubmit}>
           <FormGroup>
             <FormControl
-              className='mb-2'
+              className="mb-2"
               ref={inputRef}
-              id='name'
-              name='name'
-              required=''
+              id="name"
+              name="name"
+              required=""
               onChange={formik.handleChange}
               value={formik.values.name}
               disabled={formik.isSubmitting}
               isInvalid={!!formik.errors.name}
             />
-            <FormLabel htmlFor='name' className='visually-hidden'>
+            <FormLabel htmlFor="name" className="visually-hidden">
               {t('modals.channelName')}
             </FormLabel>
-            <FormControl.Feedback type='invalid'>
+            <FormControl.Feedback type="invalid">
               {formik.errors.name || formik.status}
             </FormControl.Feedback>
             <Modal.Footer>
-              <Button variant='secondary' type='button' onClick={handleClose}>
+              <Button variant="secondary" type="button" onClick={handleClose}>
                 {t('modals.cancelButton')}
               </Button>
               <Button
-                variant='primary'
-                type='submit'
+                variant="primary"
+                type="submit"
                 disabled={formik.isSubmitting}
                 onClick={formik.handleSubmit}
               >

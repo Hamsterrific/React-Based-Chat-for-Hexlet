@@ -24,21 +24,21 @@ const Channel = ({ channel }) => {
   };
 
   return (
-    <li key={id} className='nav-item w-100'>
+    <li key={id} className="nav-item w-100">
       {removable ? (
-        <Dropdown as={ButtonGroup} className='d-flex'>
+        <Dropdown as={ButtonGroup} className="d-flex">
           <Button
-            type='button'
+            type="button"
             key={id}
-            className='w-100 rounded-0 text-start text-truncate'
+            className="w-100 rounded-0 text-start text-truncate"
             onClick={() => handleSelectChannel(id)}
             variant={variant}
           >
-            <span className='me-1'>#</span>
+            <span className="me-1">#</span>
             {name}
           </Button>
-          <Dropdown.Toggle split className='flex-grow-0' variant={variant}>
-            <span className='visually-hidden'>{t('chat.manageChannel')}</span>
+          <Dropdown.Toggle split className="flex-grow-0" variant={variant}>
+            <span className="visually-hidden">{t('chat.manageChannel')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handleDeleteChannel(id)}>
@@ -51,13 +51,13 @@ const Channel = ({ channel }) => {
         </Dropdown>
       ) : (
         <Button
-          type='button'
+          type="button"
           variant={variant}
           key={id}
-          className='w-100 rounded-0 text-start'
+          className="w-100 rounded-0 text-start"
           onClick={() => handleSelectChannel(id)}
         >
-          <span className='me-1'>#</span>
+          <span className="me-1">#</span>
           {name}
         </Button>
       )}

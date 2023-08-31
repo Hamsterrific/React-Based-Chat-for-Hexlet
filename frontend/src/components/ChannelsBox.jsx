@@ -27,21 +27,21 @@ const ChannelsBox = () => {
   return (
     <>
       <Modal />
-      <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
+      <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('chat.channels')}</b>
         <Button
-          type='button'
-          variant='group-vertical'
-          className='p-0 text-primary'
+          type="button"
+          variant="group-vertical"
+          className="p-0 text-primary"
           onClick={handleAddChannel}
         >
           <PlusSquare size={20} />
-          <span className='visually-hidden'>+</span>
+          <span className="visually-hidden">+</span>
         </Button>
       </div>
       <ul
-        id='channels-box'
-        className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'
+        id="channels-box"
+        className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
         ref={inputRef}
       >
         {channels.map((channel) => (

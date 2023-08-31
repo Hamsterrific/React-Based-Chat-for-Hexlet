@@ -35,20 +35,20 @@ const MainPage = () => {
 
   if (channelsInfoSelector.loading) {
     return (
-      <div className='container h-100 my-4 overflow-hidden rounded shadow'>
-        <div className='row h-100 bg-white flex-md-row'>
+      <div className="container h-100 my-4 overflow-hidden rounded shadow">
+        <div className="row h-100 bg-white flex-md-row">
           <h1>{t('loading')}</h1>
         </div>
       </div>
     );
   }
   return (
-    <div className='container h-100 my-4 overflow-hidden rounded shadow'>
-      <div className='row h-100 bg-white flex-md-row'>
-        <div className='col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex'>
+    <div className="container h-100 my-4 overflow-hidden rounded shadow">
+      <div className="row h-100 bg-white flex-md-row">
+        <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
           <ChannelsBox />
         </div>
-        <div className='col p-0 h-100'>
+        <div className="col p-0 h-100">
           <MessagesBox />
         </div>
       </div>

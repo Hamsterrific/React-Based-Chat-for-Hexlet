@@ -40,7 +40,7 @@ const NewMessageForm = ({ channel }) => {
     <Form
       noValidate
       onSubmit={formik.handleSubmit}
-      className='py-1 border rounded-2'
+      className="py-1 border rounded-2"
     >
       <InputGroup>
         <Form.Control
@@ -48,15 +48,15 @@ const NewMessageForm = ({ channel }) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.body}
-          name='body'
+          name="body"
           aria-label={t('chat.newMessage')}
           disabled={formik.isSubmitting}
           placeholder={t('chat.enterMessage')}
-          className='border-0 p-0 ps-2'
+          className="border-0 p-0 ps-2"
         />
-        <Button variant='group-vertical' type='submit'>
+        <Button variant="group-vertical" type="submit">
           <ArrowRightSquare size={20} />
-          <span className='visually-hidden'>{t('chat.sendMessage')}</span>
+          <span className="visually-hidden">{t('chat.sendMessage')}</span>
         </Button>
       </InputGroup>
     </Form>

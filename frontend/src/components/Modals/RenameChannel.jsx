@@ -71,29 +71,29 @@ const RenameChannel = ({ handleClose }) => {
         <Form onSubmit={formik.handleSubmit}>
           <FormGroup>
             <FormControl
-              className='mb-2'
+              className="mb-2"
               ref={inputRef}
-              name='name'
-              id='name'
-              required=''
+              name="name"
+              id="name"
+              required=""
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.name}
               isInvalid={!!formik.errors.name}
             />
-            <FormLabel htmlFor='name' className='visually-hidden'>
+            <FormLabel htmlFor="name" className="visually-hidden">
               {t('modals.channelName')}
             </FormLabel>
-            <FormControl.Feedback type='invalid'>
+            <FormControl.Feedback type="invalid">
               {formik.errors.name || formik.status}
             </FormControl.Feedback>
             <Modal.Footer>
-              <Button variant='secondary' type='button' onClick={handleClose}>
+              <Button variant="secondary" type="button" onClick={handleClose}>
                 {t('modals.cancelButton')}
               </Button>
               <Button
-                variant='primary'
-                type='submit'
+                variant="primary"
+                type="submit"
                 disabled={formik.isSubmitting}
                 onClick={formik.handleSubmit}
               >
