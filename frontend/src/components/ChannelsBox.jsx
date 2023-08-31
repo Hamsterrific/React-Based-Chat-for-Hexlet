@@ -45,7 +45,7 @@ const ChannelsBox = () => {
         ref={inputRef}
       >
         {channels.map((channel) => (
-          <Channel channel={channel} key={channel.id}/>
+          <Channel channel={channel} key={channel.id} />
         ))}
       </ul>
     </>

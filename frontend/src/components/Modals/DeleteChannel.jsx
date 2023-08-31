@@ -1,16 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
-import { useChatApi } from '../../hooks/hooks.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useChatApi } from '../../hooks/hooks.js';
 
 const DeleteChannel = ({ handleClose }) => {
   const chatApi = useChatApi();
   const { t } = useTranslation();
   const channelId = useSelector((state) => state.modal.id);
   const handleDelete = async () => {
-    await chatApi.deleteChannel({id: channelId})
+    await chatApi
+      .deleteChannel({ id: channelId })
       .then(() => {
         toast.success(t('toast.deletedChannel'));
         handleClose();
@@ -36,7 +37,7 @@ const DeleteChannel = ({ handleClose }) => {
             {t('modals.cancelButton')}
           </Button>
           <Button variant='danger' type='button' onClick={handleDelete}>
-          {t('modals.deleteButton')}
+            {t('modals.deleteButton')}
           </Button>
         </Modal.Footer>
       </Modal.Body>

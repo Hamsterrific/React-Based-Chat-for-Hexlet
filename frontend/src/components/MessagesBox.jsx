@@ -22,7 +22,9 @@ const MessagesBox = () => {
         <p className='m-0'>
           <b>{`# ${channel?.name}`}</b>
         </p>
-        <span className='text-muted'> {`${messages.length} ${t('chat.messageCount', { count: messages.length })}`}</span>
+        <span className='text-muted'>
+          {`${messages.length} ${t('chat.messageCount', { count: messages.length })}`}
+        </span>
       </div>
       <div
         id='messages-box'

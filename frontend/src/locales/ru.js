@@ -13,11 +13,9 @@ export default {
     },
     signUp: {
       required: 'Обязательное поле',
-      usernameMin: 'Не менее 3 символов',
-      usernameMax: 'Не более 20 символов',
+      usernameLength: 'От 3 до 20 символов',
       passwordMin: 'Не менее 6 символов',
-      passwordMax: 'Не более 20 символов',
-      passwordsMustMatch: 'Пароли не  совпадают',
+      passwordsMustMatch: 'Пароли должны совпадать',
       header: 'Регистрация',
       username: 'Имя пользователя',
       password: 'Пароль',
@@ -50,7 +48,7 @@ export default {
     },
     toast: {
       addedChannel: 'Канал создан',
-      deletedChannel: 'Канал удален',
+      deletedChannel: 'Канал удалён',
       renamedChannel: 'Канал переименован',
       dataError: 'Ошибка загрузки данных',
       unknownError: 'Неизвестная ошибка',

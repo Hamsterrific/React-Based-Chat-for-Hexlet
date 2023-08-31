@@ -25,24 +25,19 @@ const SignUp = () => {
   const validationSchema = yup.object({
     username: yup
       .string()
-      .min(3, t('signUp.usernameMin'))
-      .max(20, t('signUp.usernameMax'))
+      .min(3, t('signUp.usernameLength'))
+      .max(20, t('signUp.usernameLength'))
       .trim()
       .required(t('signUp.required')),
     password: yup
       .string()
       .min(6, t('signUp.passwordMin'))
-      .max(20, t('signUp.passwordMax'))
       .trim()
       .required(t('signUp.required')),
     confirmPassword: yup
       .string()
       .trim()
-      .test(
-        'confirmPassword',
-        t('signUp.passwordsMustMatch'),
-        (value, context) => value === context.parent.password
-      ),
+      .test('confirmPassword', t('signUp.passwordsMustMatch'), (value, context) => value === context.parent.password),
   });
 
   const formik = useFormik({
@@ -73,10 +68,8 @@ const SignUp = () => {
           setRegistrationFailed(true);
           inputRef.current.select();
           return;
-        } else {
-          toast.error(t('toast.connectionError'));
-          return;
         }
+        toast.error(t('toast.connectionError'));
       }
 
       setSubmitted(false);

@@ -1,14 +1,22 @@
 import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl, FormLabel, Button, Form } from 'react-bootstrap';
+import {
+  Modal,
+  FormGroup,
+  FormControl,
+  FormLabel,
+  Button,
+  Form,
+} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
+import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useChatApi } from '../../hooks/hooks.js';
 import { getChannelNames, getChannelById } from '../../selectors.js';
 
-const validationSchema = (channels) =>
+const validationSchema = (channels) => {
   yup.object().shape({
     name: yup
       .string()
@@ -18,6 +26,7 @@ const validationSchema = (channels) =>
       .max(20, 'Max')
       .notOneOf(channels, 'Duplicate name'),
   });
+};
 
 const RenameChannel = ({ handleClose }) => {
   const inputRef = useRef(null);
@@ -39,8 +48,9 @@ const RenameChannel = ({ handleClose }) => {
     },
     validationSchema: validationSchema(channelNames),
     onSubmit: async (values) => {
-      const { name } = values;
-      await chatApi.renameChannel({ name, id: channelId })
+      const cleanedName = leoProfanity.clean(values.name);
+      await chatApi
+        .renameChannel({ name: cleanedName, id: channelId })
         .then(() => {
           toast.success(t('toast.renamedChannel'));
           handleClose();
@@ -72,14 +82,14 @@ const RenameChannel = ({ handleClose }) => {
               isInvalid={!!formik.errors.name}
             />
             <FormLabel htmlFor='name' className='visually-hidden'>
-            {t('modals.channelName')}
+              {t('modals.channelName')}
             </FormLabel>
             <FormControl.Feedback type='invalid'>
               {formik.errors.name || formik.status}
             </FormControl.Feedback>
             <Modal.Footer>
               <Button variant='secondary' type='button' onClick={handleClose}>
-              {t('modals.cancelButton')}
+                {t('modals.cancelButton')}
               </Button>
               <Button
                 variant='primary'

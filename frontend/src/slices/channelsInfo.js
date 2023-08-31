@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import fetchData from '../fetchData.js';
 
@@ -18,9 +19,7 @@ const slice = createSlice({
       state.channels.push(payload);
     },
     deleteChannel(state, { payload }) {
-      state.channels = state.channels.filter(
-        (channel) => channel.id !== payload.id
-      );
+      state.channels = state.channels.filter((channel) => channel.id !== payload.id);
       if (state.activeChannelId === payload.id) {
         state.activeChannelId = defaultChannelId;
       }

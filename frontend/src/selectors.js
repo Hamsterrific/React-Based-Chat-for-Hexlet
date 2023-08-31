@@ -1,26 +1,41 @@
-export const channelsInfo = (state) => state.channelsInfo;
+import { createSelector } from 'reselect';
 
-export const getActiveChannel = (state) => {
-    const { channels, activeChannelId } = state.channelsInfo;
-    const activeChannel = channels.find((channel) => channel.id === activeChannelId)
+export const channelsInfoSelector = (state) => state.channelsInfo;
+const messagesInfoSelector = (state) => state.messagesInfo;
+
+export const getActiveChannel = createSelector(
+  channelsInfoSelector,
+  (channelsInfo) => {
+    const { channels, activeChannelId } = channelsInfo;
+    const activeChannel = channels.find((channel) => channel.id === activeChannelId);
     return activeChannel;
-}
+  },
+);
 
-export const getActiveChannelMessages = (state) => {
-    const { activeChannelId } = state.channelsInfo;
-    const { messages } = state.messagesInfo;
-    const activeChannelMessages = messages.filter((message) => message.channelId === activeChannelId);
+export const getActiveChannelMessages = createSelector(
+  channelsInfoSelector,
+  messagesInfoSelector,
+  (channelsInfo, messagesInfo) => {
+    const { activeChannelId } = channelsInfo;
+    const { messages } = messagesInfo;
+    const activeChannelMessages = messages
+      .filter((message) => message.channelId === activeChannelId);
     return activeChannelMessages;
-}
+  },
+);
 
-export const getChannelNames = (state) => {
-    const { channels } = state.channelsInfo;
+export const getChannelNames = createSelector(
+  channelsInfoSelector,
+  (channelsInfo) => {
+    const { channels } = channelsInfo;
     const channelNames = channels.map((channel) => channel.name);
     return channelNames;
-}
+  },
+);
 
-export const getChannelById = (channelId) => (state) => {
-    const { channels } = state.channelsInfo;
+export const getChannelById = (channelId) => (
+  createSelector(channelsInfoSelector, (channelsInfo) => {
+    const { channels } = channelsInfo;
     const targetChannel = channels.find((channel) => channelId === channel.id);
     return targetChannel;
-}
+  }));

@@ -2,12 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import loginImage from '../assets/images/login.jpg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate, Link } from 'react-router-dom';
-import routes from '../routes.js';
 import { Form, Button } from 'react-bootstrap';
+import routes from '../routes.js';
+import loginImage from '../assets/images/login.jpg';
 import { useAuth } from '../hooks/hooks.js';
 
 const Login = () => {
@@ -50,10 +50,8 @@ const Login = () => {
           setAuthFailed(true);
           inputRef.current.select();
           return;
-        } else {
-          toast.error(t('toast.connectionError'));
-          return;
         }
+        toast.error(t('toast.connectionError'));
       }
     },
   });
@@ -132,7 +130,8 @@ const Login = () => {
             </div>
             <div className='card-footer p-4'>
               <div className='text-center'>
-                <span>{t('login.noAccount')}</span>{' '}
+                <span>{t('login.noAccount')}</span>
+                {' '}
                 <Link to={routes.signUpPagePath()}>{t('login.signUp')}</Link>
               </div>
             </div>

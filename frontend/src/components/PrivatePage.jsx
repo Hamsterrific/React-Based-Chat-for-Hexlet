@@ -7,12 +7,10 @@ import routes from '../routes.js';
 const PrivateRoute = () => {
   const auth = useAuth();
 
-  return (
-    auth.loggedIn ? (<MainPage />) : (
-      <Navigate
-        to={routes.loginPagePath()}
-      />
-    )
+  return auth.loggedIn ? (
+    <MainPage />
+  ) : (
+    <Navigate to={routes.loginPagePath()} />
   );
 };
 

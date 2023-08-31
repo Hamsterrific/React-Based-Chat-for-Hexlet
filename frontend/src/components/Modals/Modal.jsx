@@ -7,27 +7,27 @@ import RenameChannel from './RenameChannel.jsx';
 import DeleteChannel from './DeleteChannel.jsx';
 
 const mapping = {
-    addChannel: AddChannel,
-    deleteChannel: DeleteChannel,
-    renameChannel: RenameChannel,
-  };
-  
-  const Modal = () => {
-    const dispatch = useDispatch();
-    const isOpened = useSelector((state) => state.modal.isOpened);
-  
-    const handleClose = () => {
-      dispatch(actions.closeModal());
-    };
-    const modalType = useSelector((state) => state.modal.type);
-  
-    const Component = mapping[modalType];
-  
-    return (
-      <BootstrapModal show={isOpened} onHide={handleClose} centered>
-        {Component && <Component handleClose={handleClose} />}
-      </BootstrapModal>
-    );
-  };
+  addChannel: AddChannel,
+  deleteChannel: DeleteChannel,
+  renameChannel: RenameChannel,
+};
 
-  export default Modal;
+const Modal = () => {
+  const dispatch = useDispatch();
+  const isOpened = useSelector((state) => state.modal.isOpened);
+
+  const handleClose = () => {
+    dispatch(actions.closeModal());
+  };
+  const modalType = useSelector((state) => state.modal.type);
+
+  const Component = mapping[modalType];
+
+  return (
+    <BootstrapModal show={isOpened} onHide={handleClose} centered>
+      {Component && <Component handleClose={handleClose} />}
+    </BootstrapModal>
+  );
+};
+
+export default Modal;
