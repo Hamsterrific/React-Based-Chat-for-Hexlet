@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react';
 import { ChatApiContext } from './contexts.js';
 
-// TODO: timeouts (ask mentor)
-
 const createApiMethod = (socket, eventName) => (data) => (
   new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error('Timeout'));
+    }, 3000);
+
     socket.emit(eventName, data, (response) => {
       if (response.status === 'ok') {
         resolve(response.data);
       } else {
-        reject();
+        reject(response.error);
       }
     });
   }));

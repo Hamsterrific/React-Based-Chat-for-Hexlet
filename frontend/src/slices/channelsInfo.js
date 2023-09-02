@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import fetchData from '../fetchData.js';
 
-const defaultChannelId = 1;
+export const defaultChannelId = 1;
 
 const slice = createSlice({
   name: 'channelsInfo',

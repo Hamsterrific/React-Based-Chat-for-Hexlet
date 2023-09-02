@@ -57,7 +57,6 @@ const SignUp = () => {
           password,
         });
         logIn(response.data);
-        localStorage.setItem('userId', JSON.stringify(response.data));
         navigate(routes.rootPath());
       } catch (error) {
         if (!error.isAxiosError) {
@@ -66,12 +65,12 @@ const SignUp = () => {
         }
         if (error.response?.status === 409) {
           setRegistrationFailed(true);
+          setSubmitted(false);
           inputRef.current.select();
           return;
         }
         toast.error(t('toast.connectionError'));
       }
-
       setSubmitted(false);
     },
   });

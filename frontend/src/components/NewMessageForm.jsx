@@ -9,8 +9,6 @@ import { useAuth, useChatApi } from '../hooks/hooks.js';
 
 const NewMessageForm = ({ channel }) => {
   const { username } = useAuth();
-  console.log('new message form:');
-  console.log(username);
   const chatApi = useChatApi();
   const inputRef = useRef(null);
   const { t } = useTranslation();

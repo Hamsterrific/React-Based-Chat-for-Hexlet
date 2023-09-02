@@ -3,22 +3,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
+import { animateScroll } from 'react-scroll';
 import Channel from './Channel.jsx';
-import { actions } from '../slices/slices.js';
+import { actions, defaultChannelId } from '../slices/slices.js';
 import Modal from './Modals/Modal.jsx';
 
 const ChannelsBox = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const channelsInfo = useSelector((state) => state.channelsInfo);
-  const { channels } = channelsInfo;
+  const { channels, activeChannelId } = useSelector((state) => state.channelsInfo);
   const inputRef = useRef(null);
+  const lastChannelsItemId = channels.at(-1)?.id;
 
   useEffect(() => {
-    inputRef.current?.lastElementChild?.scrollIntoView({
-      behavior: 'smooth',
-    });
-  }, [channelsInfo.channels.length]);
+    const animateScrollOptions = { containerId: 'channels-list', delay: 0, offset: 50 };
+    if (activeChannelId === defaultChannelId) {
+      animateScroll.scrollToTop(animateScrollOptions);
+    }
+    if (activeChannelId === lastChannelsItemId) {
+      animateScroll.scrollToBottom(animateScrollOptions);
+    }
+  }, [activeChannelId, lastChannelsItemId]);
 
   const handleAddChannel = () => {
     dispatch(actions.openModal({ type: 'addChannel' }));

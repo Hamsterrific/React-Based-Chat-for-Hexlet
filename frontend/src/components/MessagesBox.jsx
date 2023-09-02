@@ -10,10 +10,12 @@ const MessagesBox = () => {
   const messages = useSelector(getActiveChannelMessages);
   const messagesView = useRef(null);
   const { t } = useTranslation();
+  const scrollToBottom = (element) => {
+    element.scrollTo(0, element.scrollHeight);
+  };
+
   useEffect(() => {
-    messagesView.current?.lastElementChild?.scrollIntoView({
-      behavior: 'smooth',
-    });
+    scrollToBottom(messagesView.current);
   }, [messages]);
 
   return (
