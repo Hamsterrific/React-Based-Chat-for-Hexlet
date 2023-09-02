@@ -3,11 +3,13 @@ import { ChatApiContext } from './contexts.js';
 
 const createApiMethod = (socket, eventName) => (data) => (
   new Promise((resolve, reject) => {
-    setTimeout(() => {
-      reject(new Error('Timeout'));
+    const timeoutId = setTimeout(() => {
+      reject(new Error('Request timed out'));
     }, 3000);
 
     socket.emit(eventName, data, (response) => {
+      clearTimeout(timeoutId);
+
       if (response.status === 'ok') {
         resolve(response.data);
       } else {
