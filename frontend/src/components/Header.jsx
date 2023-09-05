@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/hooks.js';
 
 const Header = () => {
-  const { logOut, loggedIn } = useAuth();
+  const { logOut, isLoggedIn } = useAuth();
   const { t } = useTranslation();
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm">
@@ -13,7 +13,7 @@ const Header = () => {
         <Navbar.Brand as={Link} to="/">
           {t('chatName')}
         </Navbar.Brand>
-        {!!loggedIn && <Button onClick={logOut}>{t('logOut')}</Button>}
+        {isLoggedIn && <Button onClick={logOut}>{t('logOut')}</Button>}
       </div>
     </Navbar>
   );

@@ -15,7 +15,7 @@ const Login = () => {
   const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
-  const auth = useAuth();
+  const { logIn } = useAuth();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -35,8 +35,7 @@ const Login = () => {
 
       try {
         const response = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(response.data));
-        auth.logIn(response.data);
+        logIn(response.data);
         navigate(routes.rootPath());
       } catch (error) {
         formik.setSubmitting(false);

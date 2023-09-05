@@ -8,7 +8,7 @@ import leoProfanity from 'leo-profanity';
 import { useAuth, useChatApi } from '../hooks/hooks.js';
 
 const NewMessageForm = ({ channel }) => {
-  const { username } = useAuth();
+  const { userData } = useAuth();
   const chatApi = useChatApi();
   const inputRef = useRef(null);
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ const NewMessageForm = ({ channel }) => {
       const message = {
         body: cleanedText,
         channelId: channel.id,
-        username,
+        username: userData.username,
       };
       await chatApi.addMessage(message);
       formik.resetForm();

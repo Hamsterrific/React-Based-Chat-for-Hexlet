@@ -9,14 +9,18 @@ import MessagesBox from './MessagesBox.jsx';
 import { channelsInfoSelector } from '../selectors.js';
 
 const MainPage = () => {
-  const auth = useAuth();
+  const { logOut, userData } = useAuth();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const getAuthHeader = (data) => (
+    data?.token ? { Authorization: `Bearer ${data.token}` } : {}
+  );
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        dispatch(fetchData(auth.getAuthHeader()));
+        dispatch(fetchData(getAuthHeader(userData)));
       } catch (error) {
         if (!error.isAxiosError) {
           toast.error(t('toast.unknownError'));
@@ -24,14 +28,14 @@ const MainPage = () => {
         }
         if (error.response?.status === 401) {
           toast.error(t('toast.authError'));
-          auth.logOut();
+          logOut();
         } else {
           toast.error(t('toast.connectionError'));
         }
       }
     };
     fetchUserData();
-  }, [dispatch, auth, t]);
+  }, [dispatch, logOut, userData, t]);
 
   if (channelsInfoSelector.loading) {
     return (

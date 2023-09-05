@@ -5,9 +5,9 @@ import MainPage from './MainPage.jsx';
 import routes from '../routes.js';
 
 const PrivateRoute = () => {
-  const auth = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  return auth.loggedIn ? (
+  return isLoggedIn ? (
     <MainPage />
   ) : (
     <Navigate to={routes.loginPagePath()} />
