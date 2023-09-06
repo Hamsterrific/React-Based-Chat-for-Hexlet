@@ -3,6 +3,7 @@ import { Button, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/hooks.js';
+import routes from '../routes.js';
 
 const Header = () => {
   const { logOut, isLoggedIn } = useAuth();
@@ -10,7 +11,7 @@ const Header = () => {
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <div className="container">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to={routes.rootPath()}>
           {t('chatName')}
         </Navbar.Brand>
         {isLoggedIn && <Button onClick={logOut}>{t('logOut')}</Button>}
